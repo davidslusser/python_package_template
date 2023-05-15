@@ -1,0 +1,96 @@
+[build-system]
+requires = [
+    "build",
+    "setuptools >= 67.7.2",
+	"setuptools_scm >= 7.1",
+	"wheel >= 0.40.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my_package"
+authors = [
+    {name = "David Slusser", email = "dbslusser@gmail.com"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+]
+description = ""
+dynamic = ["version"]
+keywords = ["python", ]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = [
+    "bandit",
+    "black",
+    "build",
+    "mypy",
+    "mypy-extensions",
+    "pylint",
+    "pytest",
+    "pytest-cov",
+    "types-python-dateutil",
+    "typing_extensions",
+]
+
+
+[tool.bandit]
+exclude_dirs = ["venv", "tests"]
+
+
+[tool.black]
+line-length = 120
+
+
+[tool.coverage.report]
+show_missing = true
+
+
+[tool.coverage.run]
+branch = true
+source = ["tests"]
+omit = ["*_test.py", "*/tests/*", "*__version__.py", "setup.py"]
+
+
+[tool.flake8]
+ignore = "E203,E266,H106,H904,E133"
+max-line-length = 120
+max-complexity = 25
+hang-closing = true
+exclude = "tests"
+
+
+[tool.mypy]
+ignore_missing_imports = true
+exclude = ['venv/*']
+
+
+[tool.pylint.format]
+max-line-length = "120"
+
+
+[tool.pylint.MASTER]
+ignore-paths = ["tests"]
+exit-zero = true
+
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = "R0903,R0913,R0901,W0613,W0718,C0114,C0115,C0103,R1725,R0801,R1702,R0912"
+
+
+# https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
+[tool.pytest.ini_options]
+addopts = "-s -v -x --strict-markers -m 'not extra' --doctest-modules --cov=."
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::UserWarning",
+]
+
+
+[tool.setuptools_scm]
+write_to = "src/__version__.py"
