@@ -1,11 +1,12 @@
 [build-system]
+build-backend = "setuptools.build_meta"
 requires = [
     "build",
     "setuptools >= 67.7.2",
 	"setuptools_scm >= 7.1",
 	"wheel >= 0.40.0"
 ]
-build-backend = "setuptools.build_meta"
+
 
 [project]
 name = "my_package"
@@ -22,20 +23,30 @@ dynamic = ["version"]
 keywords = ["python", ]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 
 [project.optional-dependencies]
 dev = [
     "bandit",
     "black",
     "build",
+    "coveralls",
     "mypy",
     "mypy-extensions",
-    "pylint",
+    "ruff",
     "pytest",
     "pytest-cov",
+    "safety",
+    "setuptools >= 67.7.2",
+	"setuptools_scm >= 7.1",
     "types-python-dateutil",
     "typing_extensions",
+    "wheel >= 0.40.0",
+]
+
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
 ]
 
 
@@ -66,30 +77,21 @@ exclude = "tests"
 
 
 [tool.mypy]
-ignore_missing_imports = true
 exclude = ['venv/*']
-
-
-[tool.pylint.format]
-max-line-length = "120"
-
-
-[tool.pylint.MASTER]
-ignore-paths = ["tests"]
-exit-zero = true
-
-
-[tool.pylint.'MESSAGES CONTROL']
-disable = "R0903,R0913,R0901,W0613,W0718,C0114,C0115,C0103,R1725,R0801,R1702,R0912"
+ignore_missing_imports = true
 
 
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
 [tool.pytest.ini_options]
-addopts = "-s -v -x --strict-markers -m 'not extra' --doctest-modules --cov=."
-testpaths = ["tests"]
+addopts = "-s -v -x --strict-markers -m 'not extra' --doctest-modules"
 filterwarnings = [
     "ignore::UserWarning",
 ]
+testpaths = ["tests"]
+
+
+[tool.ruff]
+line-length = 120
 
 
 [tool.setuptools_scm]

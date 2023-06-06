@@ -9,4 +9,6 @@ recursive-exclude docs *
 recursive-exclude tests *
 recursive-exclude .github *
 recursive-exclude src/*.egg-info
-exclude src/__version__.py 
+
+global-exclude */__pycache__/*
+global-exclude *.pyc
