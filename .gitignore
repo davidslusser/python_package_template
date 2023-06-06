@@ -133,4 +133,3 @@ local_test
 .vscode
 *__version__.py
 src/__version__.py
-
